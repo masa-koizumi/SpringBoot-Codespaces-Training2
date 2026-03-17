@@ -1,7 +1,9 @@
 {
   "name": "springboot-training",
 
-  "image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
 
   "forwardPorts": [8080, 5432],
 
@@ -11,8 +13,7 @@
         "vscjava.vscode-java-pack",
         "vmware.vscode-spring-boot",
         "vscjava.vscode-maven",
-        "humao.rest-client",
-        "ms-azuretools.vscode-docker"
+        "humao.rest-client"
       ]
     }
   },

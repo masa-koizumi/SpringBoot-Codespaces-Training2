@@ -5,7 +5,7 @@
     "dockerfile": "Dockerfile"
   },
 
-  "forwardPorts": [8080, 5432],
+  "forwardPorts": [8080],
 
   "customizations": {
     "vscode": {
@@ -18,5 +18,5 @@
     }
   },
 
-  "postCreateCommand": "mvn -v"
+  "postCreateCommand": "java -version && mvn -version"
 }

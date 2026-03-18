@@ -8,3 +8,4 @@ GitHub Codespaces + Spring Boot + PostgreSQL + Apache Maven 環境
 2 Code → Codespaces → Create Codespace  
 
 起動後
+mvn spring-boot:run

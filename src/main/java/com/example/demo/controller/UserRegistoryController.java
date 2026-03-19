@@ -7,11 +7,11 @@ import com.example.demo.repository.UserRepository;
 
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class UserRegistoryController {
 
     private final UserRepository repo;
 
-    public UserController(UserRepository repo) {
+    public UserRegistoryController(UserRepository repo) {
         this.repo = repo;
     }
 

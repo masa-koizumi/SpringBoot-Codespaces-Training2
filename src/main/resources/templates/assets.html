@@ -48,9 +48,9 @@
                             th:style="${a.returnDeadline.isBefore(T(java.time.LocalDate).now()) ? 'color: red; font-weight: bold;' : ''}">
                         </span>
                         
-                        <small th:style="${a.assetReturnDeadline != null && a.assetReturnDeadline.isBefore(T(java.time.LocalDate).now()) ? 'color: red; font-weight: bold;' : ''}"
-                                th:style="'display:block; font-size: 0.8em; color: red; font-weight: bold;'">
-                            ※期限を過ぎています！
+                        <small th:if="${a.assetReturnDeadline != null && a.assetReturnDeadline.isBefore(T(java.time.LocalDate).now())}"
+                               style="display:block; font-size: 0.8em; color: red; font-weight: bold;">
+                                ※期限を過ぎています！
                         </small>
                     </div>
                     <span th:if="${a.status != 'LOANED'}">-</span>

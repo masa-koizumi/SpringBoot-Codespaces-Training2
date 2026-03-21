@@ -23,10 +23,8 @@ public class AssetService {
         List<Asset> assets = assetRepo.findAll();
 
         for (Asset a : assets) {
-            loanRepo.findAll().stream()
-                    .filter(l -> l.getAsset().getId().equals(a.getId()))
-                    .findFirst()
-                    .ifPresent(l -> a.setLoanUserName(l.getUser().getName()));
+            loanRepo.findByAssetId(a.getId())
+                .ifPresent(l -> a.setLoanUserName(l.getUser().getName()));
         }
 
         return assets;

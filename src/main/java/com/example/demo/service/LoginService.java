@@ -1,49 +1,31 @@
+
 package com.example.demo.service;
 
-import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
 @Service
 public class LoginService {
 
-    private final AssetRepository assetRepo;
-    private final UserRepository userRepo;
-    private final LoanRepository loanRepo;
+    @Autowired
+    private UserRepository userRepo;
 
-    public LoginService(AssetRepository assetRepo,
-                       UserRepository userRepo,
-                       LoanRepository loanRepo) {
-        this.assetRepo = assetRepo;
-        this.userRepo = userRepo;
-        this.loanRepo = loanRepo;
-    }
+    public User login(String name) {
 
-    public void borrow(Long assetId, Long userId) {
-
-        // Asset取得
-        Asset asset = assetRepo.findById(assetId)
-                .orElseThrow(() -> new RuntimeException("Asset not found"));
-
-        // User取得
-        User user = userRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // 状態チェック
-        if (!"AVAILABLE".equals(asset.getStatus())) {
-            throw new RuntimeException("Asset already borrowed");
-        }
-
-        // Loan作成
-        Loan loan = new Loan();
-        loan.setAssetId(assetId);
-        loan.setUserId(userId);
-        loanRepo.save(loan);
-
-        // 状態変更
-        asset.setStatus("BORROWED");
-        assetRepo.save(asset);
+        return userRepo.findAll().stream()
+                .filter(u -> u.getName().equals(name))
+                .findFirst()
+                .orElseGet(() -> {
+                    User u = new User();
+                    u.setName(name);
+                    return userRepo.save(u);
+                });
     }
 }

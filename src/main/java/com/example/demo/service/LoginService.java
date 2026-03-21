@@ -4,6 +4,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional; // ★ 必要：Optionalをインポート
 
 @Service
 public class LoginService {
@@ -11,16 +12,28 @@ public class LoginService {
     @Autowired
     private UserRepository userRepo;
 
-    // ★ 追加：Controllerから呼ばれているメソッド
     public boolean authenticate(String name, String password) {
-        // 現在のロジックではパスワードチェックがないため、
-        // ユーザーが存在すればOKとするか、パスワード比較ロジックをここに追加します。
-        // return userRepo.findByName(name).isPresent();
-        // return true; // 全員
-        return "admin".equals(name); // ユーザー名が "admin" ならパスワードに関係なく通す
+        // 1. データベースから名前でユーザーを探す
+        // 引数の "name" に合わせます
+        Optional<User> userOpt = userRepo.findByName(name);
+
+        // 2. ユーザーが見つかった場合
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            // DBのパスワードと一致するかチェック
+            return user.getPassword().equals(password);
+        } 
+        
+        // 3. ユーザーがDBにいない場合でも admin なら許可する設定
+        if ("admin".equals(name)) {
+            return true;
+        }
+
+        // それ以外は失敗
+        return false;
     }
 
-    // 既存のメソッド（必要であれば残しておく）
+    // 既存のメソッド
     public User login(String name) {
         return userRepo.findByName(name)
                 .orElseGet(() -> {

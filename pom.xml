@@ -26,6 +26,11 @@
 
     <dependencies>
 
+         <dependency>
+             <groupId>org.thymeleaf.extras</groupId>
+             <artifactId>thymeleaf-extras-java8time</artifactId>
+         </dependency>
+             
         <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

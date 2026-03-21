@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users") 
-    
 public class User {
 
     @Id
@@ -12,11 +11,17 @@ public class User {
     private Long id;
 
     private String name;
+    private String password; 
 
-    // getter/setter
+    // id の getter/setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
+    // name の getter/setter
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    // ★ password の getter/setter を追加
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 }

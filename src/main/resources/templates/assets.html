@@ -45,8 +45,7 @@
                 <td>
                     <div th:if="${a.status == 'LOANED' && a.returnDeadline != null}">
                         <span th:text="${a.returnDeadline}"
-                              th:class="${a.returnDeadline.isBefore(#temporals.createNow()) ? 'overdue' : ''}">
-                            2026-03-21
+                            th:style="${a.returnDeadline.isBefore(T(java.time.LocalDate).now()) ? 'color: red; font-weight: bold;' : ''}">
                         </span>
                         
                         <small th:if="${a.returnDeadline.isBefore(#temporals.createNow())}" 

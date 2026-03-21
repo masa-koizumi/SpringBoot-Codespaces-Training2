@@ -20,7 +20,8 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String name, HttpSession session) {
+    public String login(@RequestParam String name, HttpSession session,
+        RedirectAttributes ra ) {
 
         User user = service.login(name);
         session.setAttribute("user", user);

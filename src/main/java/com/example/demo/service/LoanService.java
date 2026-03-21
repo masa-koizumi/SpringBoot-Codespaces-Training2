@@ -1,6 +1,11 @@
 package com.example.demo.service;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
 
 @Service
 public class LoanService {
@@ -14,14 +19,13 @@ public class LoanService {
     @Autowired
     private UserRepository userRepo;
 
-    // 貸出
     public void loan(Long assetId, Long userId) {
 
         Asset asset = assetRepo.findById(assetId)
                 .orElseThrow(() -> new RuntimeException("資産が存在しません"));
 
         if ("LOANED".equals(asset.getStatus())) {
-            throw new RuntimeException("貸出中のため貸出できません");
+            throw new RuntimeException("貸出中のため貸出不可");
         }
 
         User user = userRepo.findById(userId)
@@ -37,7 +41,6 @@ public class LoanService {
         assetRepo.save(asset);
     }
 
-    // 返却
     public void returnAsset(Long loanId) {
 
         Loan loan = loanRepo.findById(loanId)

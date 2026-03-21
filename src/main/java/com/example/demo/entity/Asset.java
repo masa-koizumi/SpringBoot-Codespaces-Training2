@@ -2,18 +2,23 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+
 @Entity
+@Table(name = "assets")
 public class Asset {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    private String status; // AVAILABLE / BORROWED
+    private String status; // AVAILABLE / LOANED
 
-    // getter / setter
+    @Transient
+    private String loanUserName; // 表示用
+
+    // getter/setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -22,4 +27,7 @@ public class Asset {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getLoanUserName() { return loanUserName; }
+    public void setLoanUserName(String loanUserName) { this.loanUserName = loanUserName; }
 }

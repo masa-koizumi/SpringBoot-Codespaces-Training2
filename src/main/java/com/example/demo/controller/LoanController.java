@@ -47,29 +47,27 @@ public class LoanController {
         return "loans";
     }
 
-    /**
+/**
      * 貸出処理
      */
     @PostMapping("/loans")
     public String loan(@RequestParam Long assetId,
                        @RequestParam Long userId,
+                       @RequestParam String loanDate, // ★追加: HTMLからはStringで届く
+                       @RequestParam Integer periodDays, // ★追加
                        RedirectAttributes ra) {
 
         try {
-            loanService.loan(assetId, userId);
+            // Service側に新しい引数を渡せるように後でServiceも微調整が必要です
+            loanService.loan(assetId, userId, java.time.LocalDate.parse(loanDate), periodDays);
 
-            // 成功メッセージ
             ra.addFlashAttribute("message", "貸出が完了しました");
-
         } catch (Exception e) {
-
-            // エラーメッセージ
             ra.addFlashAttribute("error", e.getMessage());
         }
 
         return "redirect:/loans";
     }
-
     /**
      * 返却処理
      */

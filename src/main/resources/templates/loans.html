@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>貸出管理</h2>
+
+<a th:href="@{/menu}">← メニューへ戻る</a>
+
+<h3>貸出一覧</h3>
+
+<table border="1">
+<tr>
+    <th>LoanID</th>
+    <th>資産名</th>
+    <th>ユーザ</th>
+    <th>操作</th>
+</tr>
+
+<tr th:each="l : ${loans}">
+    <td th:text="${l.id}"></td>
+    <td th:text="${l.asset.name}"></td>
+    <td th:text="${l.user.name}"></td>
+    <td>
+        <form th:action="@{/loans/return}" method="post">
+            <input type="hidden" name="loanId" th:value="${l.id}">
+            <button type="submit">返却</button>
+        </form>
+    </td>
+</tr>
+</table>
+
+<h3>貸出登録</h3>
+
+<form th:action="@{/loans}" method="post">
+    
+    資産：
+    <select name="assetId">
+        <option th:each="a : ${assets}"
+                th:value="${a.id}"
+                th:text="${a.name}">
+        </option>
+    </select>
+
+    ユーザ：
+    <select name="userId">
+        <option th:each="u : ${users}"
+                th:value="${u.id}"
+                th:text="${u.name}">
+        </option>
+    </select>
+
+    <button type="submit">貸出</button>
+</form>
+
+<p style="color:red;" th:text="${error}"></p>
+
+</body>
+</html>

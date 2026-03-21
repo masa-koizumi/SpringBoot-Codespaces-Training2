@@ -2,53 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>資産一覧</title>
+    <title>資産一覧 | 備品管理システム</title>
+    <style>
+        .overdue { color: red; font-weight: bold; } /* 期限切れ用スタイル */
+        .available { color: green; }               /* 利用可能用スタイル */
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f8f9fa; }
+    </style>
 </head>
 <body>
 
-<h2>資産一覧</h2>
+    <h2>資産一覧</h2>
+    <a th:href="@{/menu}">← メニューへ戻る</a>
 
-<a th:href="@{/menu}">← メニューへ戻る</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>資産名</th>
+                <th>状態</th>
+                <th>借用者</th>
+                <th>返却期限</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${assets}">
+                <td th:text="${a.id}">1</td>
+                <td th:text="${a.name}">ノートPC</td>
+                
+                <td>
+                    <span th:text="${a.status == 'LOANED' ? '貸出中' : '利用可能'}"
+                          th:class="${a.status == 'LOANED' ? 'overdue' : 'available'}">
+                    </span>
+                </td>
 
-<table border="1" style="border-collapse: collapse; margin-top: 10px;">
-    <tr style="background-color: #f2f2f2;">
-        <th>ID</th>
-        <th>名前</th>
-        <th>状態</th>
-        <th>利用ユーザ</th>
-        <th>返却期限</th> </tr>
+                <td>
+                    <span th:if="${a.status == 'LOANED'}" th:text="${a.loanUserName}">田中</span>
+                    <span th:if="${a.status != 'LOANED'}">-</span>
+                </td>
 
-    <tr th:each="a : ${assets}">
-        <td th:text="${a.id}"></td>
-        <td th:text="${a.name}"></td>
-        
-        <td th:text="${a.status == 'LOANED' ? '貸出中' : '利用可能'}"
-            th:style="${a.status == 'LOANED' ? 'color: red;' : 'color: green;'}">
-        </td>
+                <td>
+                    <div th:if="${a.status == 'LOANED' && a.returnDeadline != null}">
+                        <span th:text="${a.returnDeadline}"
+                              th:class="${a.returnDeadline.isBefore(#temporals.createNow()) ? 'overdue' : ''}">
+                            2026-03-21
+                        </span>
+                        
+                        <small th:if="${a.returnDeadline.isBefore(#temporals.createNow())}" 
+                               style="display:block; font-size: 0.8em;">
+                            ※期限を過ぎています！
+                        </small>
+                    </div>
+                    <span th:if="${a.status != 'LOANED'}">-</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-        <td>
-            <span th:if="${a.status == 'LOANED'}" th:text="${a.loanUserName}"></span>
-            <span th:if="${a.status != 'LOANED'}">-</span>
-        </td>
-
-        <td>
-            <span th:if="${a.status == 'LOANED' && a.returnDeadline != null}">
-                <span th:text="${a.returnDeadline}"
-                      th:style="${a.returnDeadline.isBefore(#temporals.createNow()) ? 'color: red; font-weight: bold;' : ''}">
-                </span>
-            </span>
-            <span th:if="${a.status != 'LOANED'}">-</span>
-        </td>
-    </tr>
-</table>
-
-<hr>
-
-<h3>資産の新規登録</h3>
-<form th:action="@{/assets}" method="post">
-    名前: <input type="text" name="name" required placeholder="例：MacBook Pro">
-    <button type="submit">登録</button>
-</form>
+    <hr>
+    <h3>新しい資産を登録する</h3>
+    <form th:action="@{/assets}" method="post">
+        名前: <input type="text" name="name" required placeholder="例: モニター">
+        <button type="submit">登録</button>
+    </form>
 
 </body>
 </html>

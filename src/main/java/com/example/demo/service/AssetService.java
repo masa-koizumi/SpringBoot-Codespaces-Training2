@@ -24,7 +24,7 @@ public class AssetService {
 
         for (Asset a : assets) {
             loanRepo.findByAssetId(a.getId())
-                .ifPresent(l -> a.setLoanUserName(l.getUser().getName()));
+            //    .ifPresent(l -> a.setLoanUserName(l.getUser().getName()));
         }
 
         return assets;

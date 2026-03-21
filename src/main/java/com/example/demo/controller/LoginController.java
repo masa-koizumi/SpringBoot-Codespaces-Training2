@@ -27,4 +27,15 @@ public class LoginController {
 
         return "redirect:/menu";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+
+        // セッション破棄
+        session.invalidate();
+
+        // ログイン画面へ
+        return "redirect:/";
+    }
+    
 }

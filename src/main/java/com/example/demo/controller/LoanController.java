@@ -72,17 +72,15 @@ public class LoanController {
      * 返却処理
      */
     @PostMapping("/loans/return")
-    public String returnAsset(@RequestParam Long loanId,
-                             RedirectAttributes ra) {
-
+    public String returnAsset(@RequestParam Long loanId, RedirectAttributes ra) {
         try {
-            loanService.returnAsset(loanId);
+            // もしService側が「資産ID」で返却する作りならこのままでOK
+            loanService.returnAsset(loanId); 
             ra.addFlashAttribute("message", "返却しました");
-
         } catch (Exception e) {
             ra.addFlashAttribute("error", e.getMessage());
         }
-
-        return "redirect:/loans";
+        return "redirect:/assets"; // 資産一覧に戻る
     }
+    
 }

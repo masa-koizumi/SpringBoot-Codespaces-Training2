@@ -28,14 +28,20 @@ public class LoginController {
         HttpSession session,
         RedirectAttributes ra) {
 
+        // 1. 認証チェック
         if (loginService.authenticate(username, password)) {
-        // if (true) {  // ★強制的に成功させる
-            session.setAttribute("user", username);
+            
+            // 2. 認証成功後、DBからユーザー情報（roleを含む）を取得
+            User user = loginService.login(username); 
+            
+            // 3. セッションに "user" という名前で Userオブジェクトを保存
+            // これにより、session.user.role で権限が取れるようになります
+            session.setAttribute("user", user);
+            
             return "redirect:/menu";
 
         } else {
             ra.addFlashAttribute("error", "ログイン失敗");
-            // "/" へのリダイレクトが一般的ですが、login画面に合わせて調整してください
             return "redirect:/"; 
         }
     }

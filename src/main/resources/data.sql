@@ -1,5 +1,5 @@
 -- 1. ユーザーデータの登録
-INSERT INTO users (name, password, role) VALUES ('admin', 'a123', 'ADMIN');
+INSERT INTO users (name, password, role) VALUES ('Admin', 'a123', 'ADMIN');
 INSERT INTO users (name, password, role) VALUES ('Alice', 'a123', 'ADMIN');
 INSERT INTO users (name, password, role) VALUES ('Bob', 'b456', 'USER');
 INSERT INTO users (name, password, role) VALUES ('Charlie', 'c789', 'USER');

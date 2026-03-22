@@ -60,11 +60,15 @@
     </table>
 
     <hr>
-    <h3>新しい資産を登録する</h3>
-    <form th:action="@{/assets}" method="post">
-        名前: <input type="text" name="name" required placeholder="例: モニター">
-        <button type="submit">登録</button>
-    </form>
+
+    <div th:if="${session.user != null && session.user.role == 'ADMIN'}">
+        <a th:href="@{/assets/new}" class="btn">新しい資産を登録する</a>
+        <a th:href="@{/users}" class="btn">ユーザー管理</a>
+    </div>
+
+    <p th:if="${session.user != null && session.user.role == 'USER'}">
+        こんにちは、[[${session.user.name}]]さん。貸出中の資産を確認してください。
+    </p>
 
 </body>
 </html>

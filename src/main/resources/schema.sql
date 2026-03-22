@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
-    password VARCHAR(100) -- ★ ここを追加！
+    password VARCHAR(100),
+    role VARCHAR(20) -- ★ ここを追加！これがないと data.sql でエラーになります
 );
 
 CREATE TABLE assets (
@@ -18,8 +19,8 @@ CREATE TABLE loans (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     asset_id BIGINT,
     user_id BIGINT,
-    loan_date DATE,          -- ★追加：貸出日
-    period_days INTEGER,     -- ★追加：期間（日数）
+    loan_date DATE,
+    period_days INTEGER,
     CONSTRAINT fk_asset FOREIGN KEY (asset_id) REFERENCES assets(id),
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );

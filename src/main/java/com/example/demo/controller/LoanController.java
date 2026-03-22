@@ -48,6 +48,23 @@ public class LoanController {
     }
 
 /**
+     * 貸出入力画面を表示する
+     */
+    @GetMapping("/loans/new")
+    public String showLoanForm(@RequestParam Long assetId, Model model) {
+        // 1. URLパラメータの assetId から資産情報を取得
+        com.example.demo.entity.Asset asset = assetRepo.findById(assetId)
+                .orElseThrow(() -> new RuntimeException("資産が見つかりません"));
+
+        // 2. 画面に渡すデータをセット
+        model.addAttribute("asset", asset);
+        // ユーザー一覧（プルダウン用）
+        model.addAttribute("users", userRepo.findAll());
+        
+        // 3. 表示するHTMLの名前（loan-new.html を想定）
+        return "loan-new"; 
+    }
+    /**
      * 貸出処理
      */
     @PostMapping("/loans")

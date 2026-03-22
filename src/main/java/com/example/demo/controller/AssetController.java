@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.service.AssetService;
 
+// ★ これらが必要です
+import com.example.demo.entity.Asset;
+import com.example.demo.repository.AssetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Controller
 public class AssetController {
 

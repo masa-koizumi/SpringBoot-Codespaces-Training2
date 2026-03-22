@@ -1,8 +1,9 @@
 -- 1. ユーザーデータの登録
-INSERT INTO users (name, password) VALUES ('Alice', 'a123');
-INSERT INTO users (name, password) VALUES ('Bob', 'b456');
-INSERT INTO users (name, password) VALUES ('Charlie', 'c789');
-INSERT INTO users (name, password) VALUES ('Taro', '');
+INSERT INTO users (name, password, role) VALUES ('admin', 'a123', 'ADMIN');
+INSERT INTO users (name, password, role) VALUES ('Alice', 'a123', 'ADMIN');
+INSERT INTO users (name, password, role) VALUES ('Bob', 'b456', 'USER');
+INSERT INTO users (name, password, role) VALUES ('Charlie', 'c789', 'USER');
+INSERT INTO users (name, password, role) VALUES ('Taro', '', 'USER');
 
 -- 2. 資産データの登録
 INSERT INTO assets (name, status) VALUES ('MacBook Pro', 'LOANED');

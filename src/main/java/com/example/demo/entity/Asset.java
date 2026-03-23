@@ -14,6 +14,7 @@ public class Asset {
 
     private String name;
     private String status; // AVAILABLE / LOANED
+    private String location; // ★課題：保管場所 (Location)
 
     // ★ 追加：Loanエンティティとの紐付け（1対多）
     // FetchType.EAGER にすることで、Asset取得時に貸出情報も一緒に読み込みます
@@ -29,6 +30,10 @@ public class Asset {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    // ★課題：保管場所のGetter/Setter
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
     public List<Loan> getLoans() { return loans; }
     public void setLoans(List<Loan> loans) { this.loans = loans; }

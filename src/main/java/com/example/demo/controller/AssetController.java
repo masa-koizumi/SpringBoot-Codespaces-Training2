@@ -5,35 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.service.AssetService;
-
-// ★ これらが必要です
 import com.example.demo.entity.Asset;
 import com.example.demo.repository.AssetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class AssetController {
 
     @Autowired
-    private AssetService service;
-
-    @Autowired
-    private AssetRepository assetRepo; // ★ ここが assetRepository になっていませんか？
+    private AssetRepository assetRepo;
 
     @GetMapping("/assets")
     public String list(Model model) {
-        model.addAttribute("assets", service.findAll());
+        model.addAttribute("assets", assetRepo.findAll());
         return "assets";
     }
-
-    @PostMapping("/assets")
-    public String create(@RequestParam String name) {
-        service.save(name);
-        return "redirect:/assets";
-    }
-
-    // AssetController.java
 
     @GetMapping("/assets/new")
     public String showCreateForm() {
@@ -41,9 +26,11 @@ public class AssetController {
     }
 
     @PostMapping("/assets/new")
-    public String createAsset(@RequestParam String name) {
+    // ★課題：保管場所 (Location) を引数に追加
+    public String createAsset(@RequestParam String name, @RequestParam String location) {
         Asset asset = new Asset();
         asset.setName(name);
+        asset.setLocation(location); // ★課題：保管場所をセット
         asset.setStatus("AVAILABLE"); // 初期状態は「利用可能」
         assetRepo.save(asset);
         return "redirect:/assets"; // 登録後は一覧へ戻る

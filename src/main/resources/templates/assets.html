@@ -48,6 +48,8 @@
             <tr>
                 <th>ID</th>
                 <th>資産名</th>
+                <!-- ★課題：保管場所 (Location) -->
+                <th>保管場所</th>
                 <th>状態</th>
                 <th>借用者</th>
                 <th>返却期限</th>
@@ -57,6 +59,8 @@
             <tr th:each="a : ${assets}">
                 <td th:text="${a.id}">1</td>
                 <td th:text="${a.name}">ノートPC</td>
+                <!-- ★課題：保管場所 (Location) -->
+                <td th:text="${a.location}">東京本社</td>
                 
                 <td>
                     <span th:text="${a.status == 'LOANED' ? '貸出中' : '利用可能'}"

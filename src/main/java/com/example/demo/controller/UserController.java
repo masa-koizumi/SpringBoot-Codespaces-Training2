@@ -34,15 +34,17 @@ public class UserController {
      */
     @PostMapping("/users")
     public String create(@RequestParam String name,
+                         @RequestParam String password,
                          RedirectAttributes ra) {
 
-        if (name == null || name.isBlank()) {
-            ra.addFlashAttribute("error", "ユーザ名を入力してください");
+        if (name == null || name.isBlank() || password == null || password.isBlank()) {
+            ra.addFlashAttribute("error", "名前とパスワードを入力してください");
             return "redirect:/users";
         }
 
         User u = new User();
         u.setName(name);
+        u.setPassword(password); // パスワードを保存
         u.setRole("User"); // ★ デフォルトロールを設定
 
         userRepo.save(u);

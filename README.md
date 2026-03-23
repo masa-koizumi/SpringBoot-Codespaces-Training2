@@ -89,6 +89,14 @@ http://localhost:8080/h2-console
 
 ---
 
+### 🏭 保管場所管理
+
+* 保管場所一覧表示
+* 保管場所登録
+* 資産との紐付け
+
+---
+
 ### 👤 ユーザ管理
 
 * ユーザ登録
@@ -106,6 +114,7 @@ http://localhost:8080/h2-console
 | 資産一覧  | `/assets` | 資産表示・登録 |
 | 貸出管理  | `/loans`  | 貸出・返却   |
 | ユーザ管理 | `/users`  | ユーザ管理   |
+| 保管場所 | `/locations` | 保管場所管理 |
 
 ---
 
@@ -129,18 +138,21 @@ Controller → Service → Repository → DB
 * AssetController：資産管理
 * LoanController：貸出管理
 * UserController：ユーザ管理
+* StorageLocationController：保管場所管理
 
 ### Service
 
 * LoginService：認証処理
 * AssetService：資産操作
 * LoanService：貸出ロジック
+* StorageLocationService：保管場所ロジック
 
 ### Entity
 
 * User：ユーザ
 * Asset：資産
 * Loan：貸出
+* StorageLocation：保管場所
 
 ---
 
@@ -172,4 +184,3 @@ spring.datasource.password=postgres
 
 spring.jpa.database-platform=org.hibernate.d
 ```
-

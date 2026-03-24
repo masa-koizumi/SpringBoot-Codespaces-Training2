@@ -6,11 +6,11 @@ INSERT INTO users (name, password, role) VALUES ('Charlie', 'c789', 'USER');
 INSERT INTO users (name, password, role) VALUES ('Taro', '', 'USER');
 
 -- 2. 資産データの登録
-INSERT INTO assets (name, status) VALUES ('MacBook Pro', 'LOANED');
-INSERT INTO assets (name, status) VALUES ('iPad Air', 'LOANED');
-INSERT INTO assets (name, status) VALUES ('Dell Monitor 24inch', 'AVAILABLE');
-INSERT INTO assets (name, status) VALUES ('iPhone 15', 'AVAILABLE');
-INSERT INTO assets (name, status) VALUES ('Web Camera', 'LOANED');
+INSERT INTO assets (name, status, location) VALUES ('MacBook Pro', 'LOANED', '東京本社');
+INSERT INTO assets (name, status, location) VALUES ('iPad Air', 'LOANED', '大阪支社');
+INSERT INTO assets (name, status, location) VALUES ('Dell Monitor 24inch', 'AVAILABLE', '東京本社');
+INSERT INTO assets (name, status, location) VALUES ('iPhone 15', 'AVAILABLE', '東京本社');
+INSERT INTO assets (name, status, location) VALUES ('Web Camera', 'LOANED', 'リモート');
 
 -- 3. 貸出情報の登録
 -- 期限内

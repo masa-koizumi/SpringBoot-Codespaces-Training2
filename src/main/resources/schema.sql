@@ -12,7 +12,8 @@ CREATE TABLE users (
 CREATE TABLE assets (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
-    status VARCHAR(20)
+    status VARCHAR(20),
+    location VARCHAR(100)
 );
 
 CREATE TABLE loans (
